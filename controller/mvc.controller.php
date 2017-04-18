@@ -158,18 +158,20 @@ class mvc_controller {
 	function ingresarAlumno($nombre,$mail,$codigocurso){
 		//carga la plantilla
 		$universitario = new universitario();
-		$pagina=$this->load_template('- Resultados de la busqueda -');
+		$pagina=$this->load_template('- Ingreso de Alumnos -');
 		//carga html del buscador
 		$jornada = $this->load_page('app/views/default/modules/m.ingresoJornada.php');
 		ob_start();
     $tsArray = $universitario->IngresoAlumnos($nombre,$mail,$codigocurso);
 		if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos
-						$titulo = 'Resultado de busqueda por "'.$codigocurso.'" ';
-						//carga la tabla de la seccion de VIEW
+				$titulo = 'Alumno Ingresado Exitosamente';
+				//carga la tabla de la seccion de VIEW
+					include 'app/views/default/modules/m.ingresoJornada.php';
+				$pagina = $this->replace_content('/\#CONTENIDO\#/ms', $jornada, $pagina);
+		}else{//si no existen datos -> muestra mensaje de error
+				$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$jornada.'<h1>Alumno Ingresado Exitosamente</h1>' , $pagina);
+		}
 		$this->view_page($pagina);
    }
-
-	}
-
 }
 ?>

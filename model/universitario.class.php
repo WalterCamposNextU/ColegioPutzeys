@@ -61,7 +61,10 @@ class universitario extends database {
 		//$query = $this->consulta("SELECT * FROM universitario WHERE carrera='$carrera' ORDER BY rand() LIMIT  $limit;");
 		$query = $this->consulta("insert into prueba (nombre,email,curso) values ('$nombre','$mail','$codigocurso')");
  	    $this->disconnect();
+
 		
+
+
 	}
 
 }
