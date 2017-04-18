@@ -147,5 +147,29 @@ class mvc_controller {
 		 return preg_replace($in, $out, $pagina);
 	}
 
+	function alumnos()
+	{
+	$pagina=$this->load_template('Ingreso de Alumnos');
+	$jornada = $this->load_page('app/views/default/modules/m.ingresoJornada.php');
+	$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$jornada, $pagina);//le asignamos a nuestra variable pagina y reemplazamos el contenido del buscador
+	$this->view_page($pagina);//devuelve la vista de nuestra varible pagina
+
+	}
+	function ingresarAlumno($nombre,$mail,$codigocurso){
+		//carga la plantilla
+		$universitario = new universitario();
+		$pagina=$this->load_template('- Resultados de la busqueda -');
+		//carga html del buscador
+		$jornada = $this->load_page('app/views/default/modules/m.ingresoJornada.php');
+		ob_start();
+    $tsArray = $universitario->IngresoAlumnos($nombre,$mail,$codigocurso);
+		if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos
+						$titulo = 'Resultado de busqueda por "'.$codigocurso.'" ';
+						//carga la tabla de la seccion de VIEW
+		$this->view_page($pagina);
+   }
+
+	}
+
 }
 ?>

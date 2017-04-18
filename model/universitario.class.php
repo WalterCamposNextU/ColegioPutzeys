@@ -54,6 +54,15 @@ class universitario extends database {
 		}
 	}
 
+	function IngresoAlumnos($nombre,$mail,$codigocurso)
+	{
+		//conexion a la base de datos
+		$this->conectar();///hace la instancia a db class y ejecuta su function
+		//$query = $this->consulta("SELECT * FROM universitario WHERE carrera='$carrera' ORDER BY rand() LIMIT  $limit;");
+		$query = $this->consulta("insert into prueba (nombre,email,curso) values ('$nombre','$mail','$codigocurso')");
+ 	    $this->disconnect();
+		
+	}
 
 }
 ?>

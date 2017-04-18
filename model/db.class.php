@@ -68,4 +68,7 @@ class database {
 	}
 
 }
+//wcampos 17-4-2017 se realiza la funcion para ingresar la jornda
+
+
 ?>
