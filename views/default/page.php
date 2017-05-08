@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Colegio Gullermo Putzeys Alvarez</title>
-<link rel="stylesheet" type="text/css" href="app/views/default/css/estilo.css"/>
+<link rel="stylesheet" type="text/css" href="app/views/default/css/master.css"/>
 </head>
 <body>
 <div id="wrapper">

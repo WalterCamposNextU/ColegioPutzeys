@@ -53,19 +53,17 @@ class universitario extends database {
 			return '';
 		}
 	}
-
-	function IngresoAlumnos($nombre,$mail,$codigocurso)
+	function IngresoAlumnos($cod_carne,$primernombre,$segundonombre,$tercernombre,$primer_apellido,$segundo_apellido,$apellidoCasado,$edad,$sexo,$fecha_nac,$estado_civil,$direccion,$celular,$email)
 	{
 		//conexion a la base de datos
 		$this->conectar();///hace la instancia a db class y ejecuta su function
 		//$query = $this->consulta("SELECT * FROM universitario WHERE carrera='$carrera' ORDER BY rand() LIMIT  $limit;");
-		$query = $this->consulta("insert into prueba (nombre,email,curso) values ('$nombre','$mail','$codigocurso')");
+		$query = $this->consulta("insert into alumnos(cod_carne, primer_nombre, segundo_nombre, tercer_nombre, primer_apellido, segundo_apellido,apellido_casada, edad,sexo,fecha_nac,estado_civil,direccion,celular,email) values ('$cod_carne','$primernombre','$segundonombre','$tercernombre','$primer_apellido','$segundo_apellido','$apellidoCasado','$edad','$sexo','$fecha_nac','$estado_civil','$direccion','$celular','$email')");
  	    $this->disconnect();
 
-		
+
 
 
 	}
-
 }
 ?>

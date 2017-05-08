@@ -3,8 +3,7 @@
 body {
  font-family: Verdana, Arial, Helvetica, sans-serif;
  font-size: 13px;
- background-color:#FF8C00;
- background-image: url(app/views/default/images/fondo.jpg);
+ background-color:gray;
 }
 
 /* Maquetaci�n */
@@ -16,30 +15,27 @@ body {
 #header {
  width: 100%;
  float: left;
- height: 120px;
- background:#0099CC;
+ height: 180px;
  border-bottom:1px solid #D9E3E5;
+
 }
-#logo{
+#im{
   width: 300px;
-  height: 80px;
+  height: 150px;
   float: left;
   margin-left: 10px;
-
+  border-radius: 50%;
 }
 #titulo_encabezado{
   width: 1200px;
+  margin-top: 10px;
+  text-align: center;
 }
-img[src$="jpg"]{
 
-border-top-left-radius: 10px;
-border-top-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-bottom-right-radius: 10px;
-  /*border: 1px solid black;*/
-}
 #titulo{
+  margin-top: 50px;
   width: 1200px;
+  text-align: center;
 }
 
 #leftcolumn {
@@ -51,7 +47,7 @@ border-bottom-right-radius: 10px;
 #content {
  float: left;
  color: #333;
- background:#CCCCCC;
+
  width:76%;
  height:inherit:
  display: inline;
@@ -103,12 +99,11 @@ text-align:right;
 #menu li a:link, #menu5 li a:visited {
 	color: #FFF;
 	display: block;
-	background:  url(../images/menu.gif);
 	padding: 8px 0 0 10px;
 }
 
 #menu li a:hover {
-	color: #FFF;
+	color: black;
 	background:  url(../images/menu.gif) 0 -32px;
 	padding: 8px 0 0 10px;
 }

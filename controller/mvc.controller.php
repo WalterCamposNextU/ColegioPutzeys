@@ -104,9 +104,9 @@ class mvc_controller {
             include 'app/views/default/modules/m.tablaAlumnos.php';
           $table = ob_get_clean();
           //realiza el parseado
-          $pagina = $this->replace_content('/\#CONTENIDO\#/ms', $buscador.$table , $pagina);
+          $pagina = $this->replace_content('/\#CONTENIDO\#/ms',$table , $pagina);
       }else{//si no existen datos -> muestra mensaje de error
-          $pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador.'<h1>No existen resultados</h1>' , $pagina);
+          $pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,'<h1>No existen resultados</h1>' , $pagina);
       }
   $this->view_page($pagina);
  }
@@ -150,28 +150,120 @@ class mvc_controller {
 	function alumnos()
 	{
 	$pagina=$this->load_template('Ingreso de Alumnos');
-	$jornada = $this->load_page('app/views/default/modules/m.ingresoJornada.php');
+	$jornada = $this->load_page('app/views/default/modules/m.ingresoAlumno.php');
 	$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$jornada, $pagina);//le asignamos a nuestra variable pagina y reemplazamos el contenido del buscador
 	$this->view_page($pagina);//devuelve la vista de nuestra varible pagina
 
 	}
-	function ingresarAlumno($nombre,$mail,$codigocurso){
+	function ingresarAlumno($cod_carne,$primernombre,$segundonombre,$tercernombre,$primer_apellido,$segundo_apellido,$apellidoCasado,$edad,$sexo,$fecha_nac,$estado_civil,$direccion,$celular,$email){
 		//carga la plantilla
 		$universitario = new universitario();
 		$pagina=$this->load_template('- Ingreso de Alumnos -');
 		//carga html del buscador
-		$jornada = $this->load_page('app/views/default/modules/m.ingresoJornada.php');
+		$jornada = $this->load_page('app/views/default/modules/m.ingresoAlumn.php');
 		ob_start();
-    $tsArray = $universitario->IngresoAlumnos($nombre,$mail,$codigocurso);
+    $tsArray = $universitario->IngresoAlumnos($cod_carne,$primernombre,$segundonombre,$tercernombre,$primer_apellido,$segundo_apellido,$apellidoCasado,$edad,$sexo,$fecha_nac,$estado_civil,$direccion,$celular,$email);
 		if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos
 				$titulo = 'Alumno Ingresado Exitosamente';
 				//carga la tabla de la seccion de VIEW
-					include 'app/views/default/modules/m.ingresoJornada.php';
+					include 'app/views/default/modules/m.ingresoAlumno.php';
 				$pagina = $this->replace_content('/\#CONTENIDO\#/ms', $jornada, $pagina);
 		}else{//si no existen datos -> muestra mensaje de error
 				$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$jornada.'<h1>Alumno Ingresado Exitosamente</h1>' , $pagina);
 		}
 		$this->view_page($pagina);
    }
+
+	 function buscar2(){
+ 		$pagina=$this->load_template('Busqueda de registros');
+ 		$buscador = $this->load_page('app/views/default/modules/m.buscarCarne.php');
+ 		$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);
+ 		$this->view_page($pagina);
+ 	}
+
+
+
+	function buscarAlcarnet($cod_carne)
+ {
+	$alumnos = new alumnos();
+	//carga la plantilla
+	$pagina=$this->load_template('- Resultados de la busqueda -');
+	//carga html del buscador
+			$buscador = $this->load_page('app/views/default/modules/m.buscadorCarne.php');
+			//obtiene  los registros de la base de datos
+		ob_start();
+		//realiza consulta al modelo
+		 $tsArray = $alumnos->ConsultaAlumnosCarne($cod_carne);
+			if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos
+						include 'app/views/default/modules/m.buscarCarne.php';
+						include 'app/views/default/modules/m.tablaAlumnos.php';
+
+					$table = ob_get_clean();
+					//realiza el parseado
+					$pagina = $this->replace_content('/\#CONTENIDO\#/ms', $buscador.$table , $pagina);
+			}else{//si no existen datos -> muestra mensaje de error
+					$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador.'<h1>No existen resultados</h1>' , $pagina);
+			}
+
+	$this->view_page($pagina);
+ }
+ function Expediente(){
+	$pagina=$this->load_template('Busqueda de registros');
+	$buscador = $this->load_page('app/views/default/modules/m.ingexpedientes.php');
+	$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);
+	$this->view_page($pagina);
+}
+function ingresarExpediente($fe_de_edad,$certificado_sexto,$fotocopia_dpi,$diploma_sexto,$cert_matr_primero_bas,$cert_matr_segundo_bas,$cert_matr_tercero_bas,$dipl_ciclo_bas,$cert_meca,$foto_titulo,$fe_de_edad_titulo,$const_cod_personal,$id_alumno){
+	//carga la plantilla
+	$alumnos = new alumnos();
+	$pagina=$this->load_template('- Ingreso de Expediente -');
+	//carga html del buscador
+	$expediente = $this->load_page('app/views/default/modules/m.ingexpedientes.php');
+	ob_start();
+	$tsArray = $alumnos->IngresoExp($fe_de_edad,$certificado_sexto,$fotocopia_dpi,$diploma_sexto,$cert_matr_primero_bas,$cert_matr_segundo_bas,$cert_matr_tercero_bas,$dipl_ciclo_bas,$cert_meca,$foto_titulo,$fe_de_edad_titulo,$const_cod_personal,$id_alumno);
+	if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos
+			$titulo = 'Expediente Ingresado Exitosamente';
+			//carga la tabla de la seccion de VIEW
+				include 'app/views/default/modules/m.ingexpedientes.php';
+			$pagina = $this->replace_content('/\#CONTENIDO\#/ms', $expediente, $pagina);
+	}else{//si no existen datos -> muestra mensaje de error
+			$pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$expediente.'<h1>Expediente Ingresado Exitosamente</h1>' , $pagina);
+	}
+	$this->view_page($pagina);
+ }
+
+ function buscarExpediente(){
+  $pagina=$this->load_template('Busqueda de registros');
+  $buscador = $this->load_page('app/views/default/modules/m.buscarExp.php');
+  $pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador , $pagina);
+  $this->view_page($pagina);
+ }
+
+
+
+ function buscarExpCarne($cod_carne)
+ {
+ $alumnos = new alumnos();
+ //carga la plantilla
+ $pagina=$this->load_template('- Resultados de la busqueda -');
+ //carga html del buscador
+ 	 $buscador = $this->load_page('app/views/default/modules/m.buscarExp.php');
+ 	 //obtiene  los registros de la base de datos
+  ob_start();
+  //realiza consulta al modelo
+ 	$tsArray = $alumnos->ConsultaExp($cod_carne);
+ 	 if($tsArray!=''){//si existen registros carga el modulo  en memoria y rellena con los datos
+
+ 				 include 'app/views/default/modules/m.tablaExpediente.php';
+
+ 			 $table = ob_get_clean();
+ 			 //realiza el parseado
+ 			 $pagina = $this->replace_content('/\#CONTENIDO\#/ms', $buscador.$table , $pagina);
+ 	 }else{//si no existen datos -> muestra mensaje de error
+ 			 $pagina = $this->replace_content('/\#CONTENIDO\#/ms' ,$buscador.'<h1>No existen resultados</h1>' , $pagina);
+ 	 }
+
+ $this->view_page($pagina);
+ }
 }
 ?>
